@@ -1,0 +1,127 @@
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>{{blog_name|escape}}</title>
+    <link rel="shortcut icon" href="/graphics/favicon.ico" type="image/x-icon" />
+    <script src="http://c.fzilla.com/1286136086-jquery.js"></script>
+    <script src="/js/modernizr-1.7.min.js"></script>
+    <link rel="stylesheet"
+     type="text/css"
+     href="/css/reset.css"
+     media="screen"
+     title="html5doctor.com Reset Stylesheet" />
+    <link rel="stylesheet"
+     type="text/css"
+     href="/css/css3.css"
+     media="screen" />
+    <link rel="stylesheet"
+     type="text/css"
+     href="/css/general.css"
+     media="screen" />
+    <link rel="stylesheet"
+     type="text/css"
+     href="/css/grid.css"
+     media="screen" />
+    <!--[if (gte IE 6)&(lte IE 8)]>
+        <script src="/js/selectivizr.js"></script>
+    <![endif]-->
+    <style>
+      article {border-bottom:5px double #ccc; margin-bottom:10px; padding-bottom:10px;}
+      article .date {display:block; float:left; border:1px dashed #ccc; margin-right:15px; margin-bottom:10px; background-color:#fff;}
+      article .date .day {font-family:Georgia, "Times New Roman", Times, serif; font-size:2.5em; text-align:center; display:block; padding:1px 10px;}
+      article .date .month {font-family:Arial, Helvetica, sans-serif; background-color:#eee; border-top:1px dashed #ccc; border-bottom:1px dashed #ccc; font-weight:600; color:#525252;  display:block; text-align:center; padding:3px;}
+      article .date .year {font-family:Verdana, Geneva, sans-serif; font-size:10px; text-align:center; color:#ccc; display:block;}
+      article .article_info {font-family:Verdana, Geneva, sans-serif; border-bottom:1px dashed #ccc; margin-bottom:5px; display:block; color:#666;}
+      .writers {width: 270px;}
+      ::-webkit-scrollbar {
+          width: 12px;
+      }
+      ::-webkit-scrollbar-track {
+          -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+          border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+          border-radius: 10px;
+          -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <div class="col col_11">
+        <hr/>
+        <form>
+          <input type="submit" value="Switch blog">
+          <input value={{blog_name}} name="blog_name">
+          <a class="right" href="{{ url }}">{{ url_linktext }}</a>
+        </form>
+        <hr/>
+      </div>
+    </div>
+    <div class="row">
+        <header>
+          <div class="col col_6">
+            <img style="padding:3px;"src="/graphics/big_247.png" alt="247">
+            <h1 style="font-size:2.52em;">{{blog_name|escape}}</h1>
+          </div>
+        </header>
+      {% if is_owner %}
+        <div class="col col_5" style="border:1px dashed; border-radius:3px; border-color:#cccccc;">
+          <div style="padding: 4px">
+          <h3>Co-writers</h3>
+          <form action="/update_co_writers" method="post">
+            <input type="submit" value="Add" name="add">
+            <input name="co_writer">
+            <select class="writers" multiple name="co_writers">
+              {% for co_writer in co_writers %}
+                <option>{{co_writer.writer|escape}}</option>
+              {% endfor %}
+            </select>
+            <br/>
+            <input type="submit" value="Remove" name="remove">
+          </form>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+    <div class="row">
+      <div class="col col_11">
+        <hr/>
+      </div>
+    </div>
+  {% if can_post %}
+    <div class="row">
+      <div class="col col_11">
+        <form action="/new_post" method="post">
+          <h3></h3>
+          <div><textarea name="content" rows="3" cols="60"></textarea></div>
+          <div><input type="submit" value="Submit"></div>
+        </form>
+        <hr/>
+      </div>
+    </div>
+  {% endif %}
+    <div class="row">
+      <div class="col col_11" style="height:500; overflow:auto;">
+        {% for post in posts %}
+        <article>
+            <div class="date">
+                <span class="day">{{post.date.day}}</span>
+                <span class="month">{{post.date.month}}</span>
+                <span class="year">{{post.date.year}}</span>
+            </div>
+            <h3>{{post.title|escape}}</h3></a>
+            <p>{{post.content|escape}}</p>
+            <span class="article_info"> posted by <b>{{post.author}}</b>, on <i>{{post.date.ctime()}}</i></span>
+            <div class="clear"></div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col_11">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>
