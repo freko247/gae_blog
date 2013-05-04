@@ -10,9 +10,9 @@ Application uses the 52framework for layout, all credit to them.
 
 Install
 =======
-Download repository
-Create app.yaml (described in followig paragraph)
-Upload application (https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading)
+- Download repository
+- Create app.yaml (described in followig paragraph)
+- Upload application (https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading)
 
 app.yaml
 --------
